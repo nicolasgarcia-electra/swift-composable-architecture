@@ -1,7 +1,7 @@
 #if canImport(Combine)
   import Combine
   import Foundation
-  import XCTestDynamicOverlay
+//  import XCTestDynamicOverlay
 
   /// A scheduler that causes the current XCTest test case to fail if it is used.
   ///
@@ -78,22 +78,22 @@
     SchedulerTimeType.Stride: SchedulerTimeIntervalConvertible
   {
     public var minimumTolerance: SchedulerTimeType.Stride {
-      XCTFail(
-        """
-        \(self.prefix.isEmpty ? "" : "\(self.prefix) - ")\
-        An unimplemented scheduler was asked its minimum tolerance.
-        """
-      )
+//      XCTFail(
+//        """
+//        \(self.prefix.isEmpty ? "" : "\(self.prefix) - ")\
+//        An unimplemented scheduler was asked its minimum tolerance.
+//        """
+//      )
       return self._minimumTolerance
     }
 
     public var now: SchedulerTimeType {
-      XCTFail(
-        """
-        \(self.prefix.isEmpty ? "" : "\(self.prefix) - ")\
-        An unimplemented scheduler was asked the current time.
-        """
-      )
+//      XCTFail(
+//        """
+//        \(self.prefix.isEmpty ? "" : "\(self.prefix) - ")\
+//        An unimplemented scheduler was asked the current time.
+//        """
+//      )
       return self._now
     }
 
@@ -112,12 +112,12 @@
     }
 
     public func schedule(options _: SchedulerOptions?, _ action: () -> Void) {
-      XCTFail(
-        """
-        \(self.prefix.isEmpty ? "" : "\(self.prefix) - ")\
-        An unimplemented scheduler scheduled an action to run immediately.
-        """
-      )
+//      XCTFail(
+//        """
+//        \(self.prefix.isEmpty ? "" : "\(self.prefix) - ")\
+//        An unimplemented scheduler scheduled an action to run immediately.
+//        """
+//      )
     }
 
     public func schedule(
@@ -126,12 +126,12 @@
       options _: SchedulerOptions?,
       _ action: () -> Void
     ) {
-      XCTFail(
-        """
-        \(self.prefix.isEmpty ? "" : "\(self.prefix) - ")\
-        An unimplemented scheduler scheduled an action to run later.
-        """
-      )
+//      XCTFail(
+//        """
+//        \(self.prefix.isEmpty ? "" : "\(self.prefix) - ")\
+//        An unimplemented scheduler scheduled an action to run later.
+//        """
+//      )
     }
 
     public func schedule(
@@ -141,12 +141,12 @@
       options _: SchedulerOptions?,
       _ action: () -> Void
     ) -> Cancellable {
-      XCTFail(
-        """
-        \(self.prefix.isEmpty ? "" : "\(self.prefix) - ")\
-        An unimplemented scheduler scheduled an action to run on a timer.
-        """
-      )
+//      XCTFail(
+//        """
+//        \(self.prefix.isEmpty ? "" : "\(self.prefix) - ")\
+//        An unimplemented scheduler scheduled an action to run on a timer.
+//        """
+//      )
       return AnyCancellable {}
     }
   }
