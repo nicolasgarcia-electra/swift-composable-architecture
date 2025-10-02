@@ -1,5 +1,5 @@
 import Combine
-import CombineSchedulers
+//import CombineSchedulers
 
 extension Effect where Failure == Never {
   /// Returns an effect that repeatedly emits the current time of the given scheduler on the given
