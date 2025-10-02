@@ -1,7 +1,7 @@
 import CasePaths
 import Combine
 import SwiftUI
-import XCTestDynamicOverlay
+//import XCTestDynamicOverlay
 
 // MARK: - Deprecated after 0.40.0:
 
@@ -413,13 +413,13 @@ extension CaseLet {
 }
 
 #if DEBUG
-  extension TestStore {
-    @available(*, deprecated, renamed: "ScopedState")
-    public typealias LocalState = ScopedState
-
-    @available(*, deprecated, renamed: "ScopedAction")
-    public typealias LocalAction = ScopedAction
-  }
+//  extension TestStore {
+//    @available(*, deprecated, renamed: "ScopedState")
+//    public typealias LocalState = ScopedState
+//
+//    @available(*, deprecated, renamed: "ScopedAction")
+//    public typealias LocalAction = ScopedAction
+//  }
 #endif
 
 // MARK: - Deprecated after 0.38.2:
@@ -621,167 +621,166 @@ extension Reducer {
 // MARK: - Deprecated after 0.29.0:
 
 #if DEBUG
-  extension TestStore where ScopedState: Equatable, Action: Equatable {
-    @available(
-      *, deprecated, message: "Use 'TestStore.send' and 'TestStore.receive' directly, instead."
-    )
-    public func assert(
-      _ steps: Step...,
-      file: StaticString = #file,
-      line: UInt = #line
-    ) {
-      assert(steps, file: file, line: line)
-    }
-
-    @available(
-      *, deprecated, message: "Use 'TestStore.send' and 'TestStore.receive' directly, instead."
-    )
-    public func assert(
-      _ steps: [Step],
-      file: StaticString = #file,
-      line: UInt = #line
-    ) {
-
-      func assert(step: Step) {
-        switch step.type {
-        case let .send(action, update):
-          self.send(action, update, file: step.file, line: step.line)
-
-        case let .receive(expectedAction, update):
-          self.receive(expectedAction, update, file: step.file, line: step.line)
-
-        case let .environment(work):
-          if !self.receivedActions.isEmpty {
-            var actions = ""
-//            customDump(self.receivedActions.map(\.action), to: &actions)
-            XCTFail(
-              """
-              Must handle \(self.receivedActions.count) received \
-              action\(self.receivedActions.count == 1 ? "" : "s") before performing this work: …
-
-              Unhandled actions: \(actions)
-              """,
-              file: step.file, line: step.line
-            )
-          }
-          do {
-            try work(&self.environment)
-          } catch {
-            XCTFail("Threw error: \(error)", file: step.file, line: step.line)
-          }
-
-        case let .do(work):
-          if !receivedActions.isEmpty {
-            var actions = ""
-//            customDump(self.receivedActions.map(\.action), to: &actions)
-            XCTFail(
-              """
-              Must handle \(self.receivedActions.count) received \
-              action\(self.receivedActions.count == 1 ? "" : "s") before performing this work: …
-
-              Unhandled actions: \(actions)
-              """,
-              file: step.file, line: step.line
-            )
-          }
-          do {
-            try work()
-          } catch {
-            XCTFail("Threw error: \(error)", file: step.file, line: step.line)
-          }
-
-        case let .sequence(subSteps):
-          subSteps.forEach(assert(step:))
-        }
-      }
-
-      steps.forEach(assert(step:))
-
-      self.completed()
-    }
-
-    public struct Step {
-      fileprivate let type: StepType
-      fileprivate let file: StaticString
-      fileprivate let line: UInt
-
-      private init(
-        _ type: StepType,
-        file: StaticString = #file,
-        line: UInt = #line
-      ) {
-        self.type = type
-        self.file = file
-        self.line = line
-      }
-
-      @available(*, deprecated, message: "Call 'TestStore.send' directly, instead.")
-      public static func send(
-        _ action: ScopedAction,
-        file: StaticString = #file,
-        line: UInt = #line,
-        _ update: ((inout ScopedState) throws -> Void)? = nil
-      ) -> Step {
-        Step(.send(action, update), file: file, line: line)
-      }
-
-      @available(*, deprecated, message: "Call 'TestStore.receive' directly, instead.")
-      public static func receive(
-        _ action: Action,
-        file: StaticString = #file,
-        line: UInt = #line,
-        _ update: ((inout ScopedState) throws -> Void)? = nil
-      ) -> Step {
-        Step(.receive(action, update), file: file, line: line)
-      }
-
-      @available(*, deprecated, message: "Mutate 'TestStore.environment' directly, instead.")
-      public static func environment(
-        file: StaticString = #file,
-        line: UInt = #line,
-        _ update: @escaping (inout Environment) throws -> Void
-      ) -> Step {
-        Step(.environment(update), file: file, line: line)
-      }
-
-      @available(*, deprecated, message: "Perform this work directly in your test, instead.")
-      public static func `do`(
-        file: StaticString = #file,
-        line: UInt = #line,
-        _ work: @escaping () throws -> Void
-      ) -> Step {
-        Step(.do(work), file: file, line: line)
-      }
-
-      @available(*, deprecated, message: "Perform this work directly in your test, instead.")
-      public static func sequence(
-        _ steps: [Step],
-        file: StaticString = #file,
-        line: UInt = #line
-      ) -> Step {
-        Step(.sequence(steps), file: file, line: line)
-      }
-
-      @available(*, deprecated, message: "Perform this work directly in your test, instead.")
-      public static func sequence(
-        _ steps: Step...,
-        file: StaticString = #file,
-        line: UInt = #line
-      ) -> Step {
-        Step(.sequence(steps), file: file, line: line)
-      }
-
-      fileprivate indirect enum StepType {
-        case send(ScopedAction, ((inout ScopedState) throws -> Void)?)
-        case receive(Action, ((inout ScopedState) throws -> Void)?)
-        case environment((inout Environment) throws -> Void)
-        case `do`(() throws -> Void)
-        case sequence([Step])
-      }
-    }
-  }
+//  extension TestStore where ScopedState: Equatable, Action: Equatable {
+//    @available(
+//      *, deprecated, message: "Use 'TestStore.send' and 'TestStore.receive' directly, instead."
+//    )
+//    public func assert(
+//      _ steps: Step...,
+//      file: StaticString = #file,
+//      line: UInt = #line
+//    ) {
+//      assert(steps, file: file, line: line)
+//    }
+//
+//    @available(
+//      *, deprecated, message: "Use 'TestStore.send' and 'TestStore.receive' directly, instead."
+//    )
+//    public func assert(
+//      _ steps: [Step],
+//      file: StaticString = #file,
+//      line: UInt = #line
+//    ) {
+//
+//      func assert(step: Step) {
+//        switch step.type {
+//        case let .send(action, update):
+//          self.send(action, update, file: step.file, line: step.line)
+//
+//        case let .receive(expectedAction, update):
+//          self.receive(expectedAction, update, file: step.file, line: step.line)
+//
+//        case let .environment(work):
+//          if !self.receivedActions.isEmpty {
+//            var actions = ""
+////            customDump(self.receivedActions.map(\.action), to: &actions)
+//            XCTFail(
+//              """
+//              Must handle \(self.receivedActions.count) received \
+//              action\(self.receivedActions.count == 1 ? "" : "s") before performing this work: …
+//
+//              Unhandled actions: \(actions)
+//              """,
+//              file: step.file, line: step.line
+//            )
+//          }
+//          do {
+//            try work(&self.environment)
+//          } catch {
+//            XCTFail("Threw error: \(error)", file: step.file, line: step.line)
+//          }
+//
+//        case let .do(work):
+//          if !receivedActions.isEmpty {
+//            var actions = ""
+////            customDump(self.receivedActions.map(\.action), to: &actions)
+//            XCTFail(
+//              """
+//              Must handle \(self.receivedActions.count) received \
+//              action\(self.receivedActions.count == 1 ? "" : "s") before performing this work: …
+//
+//              Unhandled actions: \(actions)
+//              """,
+//              file: step.file, line: step.line
+//            )
+//          }
+//          do {
+//            try work()
+//          } catch {
+//            XCTFail("Threw error: \(error)", file: step.file, line: step.line)
+//          }
+//
+//        case let .sequence(subSteps):
+//          subSteps.forEach(assert(step:))
+//        }
+//      }
+//
+//      steps.forEach(assert(step:))
+//
+//      self.completed()
+//    }
+//
+//    public struct Step {
+//      fileprivate let type: StepType
+//      fileprivate let file: StaticString
+//      fileprivate let line: UInt
+//
+//      private init(
+//        _ type: StepType,
+//        file: StaticString = #file,
+//        line: UInt = #line
+//      ) {
+//        self.type = type
+//        self.file = file
+//        self.line = line
+//      }
+//
+//      @available(*, deprecated, message: "Call 'TestStore.send' directly, instead.")
+//      public static func send(
+//        _ action: ScopedAction,
+//        file: StaticString = #file,
+//        line: UInt = #line,
+//        _ update: ((inout ScopedState) throws -> Void)? = nil
+//      ) -> Step {
+//        Step(.send(action, update), file: file, line: line)
+//      }
+//
+//      @available(*, deprecated, message: "Call 'TestStore.receive' directly, instead.")
+//      public static func receive(
+//        _ action: Action,
+//        file: StaticString = #file,
+//        line: UInt = #line,
+//        _ update: ((inout ScopedState) throws -> Void)? = nil
+//      ) -> Step {
+//        Step(.receive(action, update), file: file, line: line)
+//      }
+//
+//      @available(*, deprecated, message: "Mutate 'TestStore.environment' directly, instead.")
+//      public static func environment(
+//        file: StaticString = #file,
+//        line: UInt = #line,
+//        _ update: @escaping (inout Environment) throws -> Void
+//      ) -> Step {
+//        Step(.environment(update), file: file, line: line)
+//      }
+//
+//      @available(*, deprecated, message: "Perform this work directly in your test, instead.")
+//      public static func `do`(
+//        file: StaticString = #file,
+//        line: UInt = #line,
+//        _ work: @escaping () throws -> Void
+//      ) -> Step {
+//        Step(.do(work), file: file, line: line)
+//      }
+//
+//      @available(*, deprecated, message: "Perform this work directly in your test, instead.")
+//      public static func sequence(
+//        _ steps: [Step],
+//        file: StaticString = #file,
+//        line: UInt = #line
+//      ) -> Step {
+//        Step(.sequence(steps), file: file, line: line)
+//      }
+//
+//      @available(*, deprecated, message: "Perform this work directly in your test, instead.")
+//      public static func sequence(
+//        _ steps: Step...,
+//        file: StaticString = #file,
+//        line: UInt = #line
+//      ) -> Step {
+//        Step(.sequence(steps), file: file, line: line)
+//      }
+//
+//      fileprivate indirect enum StepType {
+//        case send(ScopedAction, ((inout ScopedState) throws -> Void)?)
+//        case receive(Action, ((inout ScopedState) throws -> Void)?)
+//        case environment((inout Environment) throws -> Void)
+//        case `do`(() throws -> Void)
+//        case sequence([Step])
+//      }
+//    }
+//  }
 #endif
-
 // MARK: - Deprecated after 0.27.1:
 
 extension AlertState.Button {

@@ -1,7 +1,7 @@
 import Combine
 import Foundation
 import SwiftUI
-import XCTestDynamicOverlay
+//import XCTestDynamicOverlay
 
 /// The ``Effect`` type encapsulates a unit of work that can be run in the outside world, and can
 /// feed actions back to the ``Store``. It is the perfect place to do side effects, such as network
@@ -585,7 +585,7 @@ extension Effect {
   )
   public static func unimplemented(_ prefix: String) -> Self {
     .fireAndForget {
-      XCTFail("\(prefix.isEmpty ? "" : "\(prefix) - ")An unimplemented effect ran.")
+//      XCTFail("\(prefix.isEmpty ? "" : "\(prefix) - ")An unimplemented effect ran.")
     }
   }
 }
