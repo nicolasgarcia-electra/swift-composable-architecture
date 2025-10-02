@@ -118,21 +118,21 @@ extension Reducer {
           debugEnvironment.queue.async {
             var actionOutput = ""
             if actionFormat == .prettyPrint {
-              customDump(debugAction, to: &actionOutput, indent: 2)
+//              customDump(debugAction, to: &actionOutput, indent: 2)
             } else {
               actionOutput.write(debugCaseOutput(debugAction).indent(by: 2))
             }
-            let stateOutput =
-              DebugState.self == Void.self
-              ? ""
-              : diff(previousState, nextState).map { "\($0)\n" } ?? "  (No state changes)\n"
-            debugEnvironment.printer(
-              """
-              \(prefix.isEmpty ? "" : "\(prefix): ")received action:
-              \(actionOutput)
-              \(stateOutput)
-              """
-            )
+//            let stateOutput =
+//              DebugState.self == Void.self
+//              ? ""
+//              : diff(previousState, nextState).map { "\($0)\n" } ?? "  (No state changes)\n"
+//            debugEnvironment.printer(
+//              """
+//              \(prefix.isEmpty ? "" : "\(prefix): ")received action:
+//              \(actionOutput)
+//              \(stateOutput)
+//              """
+//            )
           }
         }
 

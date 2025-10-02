@@ -1,4 +1,4 @@
-import CustomDump
+//import CustomDump
 import SwiftUI
 
 /// A property wrapper type that can designate properties of app state that can be directly
@@ -226,11 +226,11 @@ extension BindableState: CustomReflectable {
   }
 }
 
-extension BindableState: CustomDumpRepresentable {
-  public var customDumpValue: Any {
-    self.wrappedValue
-  }
-}
+//extension BindableState: CustomDumpRepresentable {
+//  public var customDumpValue: Any {
+//    self.wrappedValue
+//  }
+//}
 
 extension BindableState: CustomDebugStringConvertible where Value: CustomDebugStringConvertible {
   public var debugDescription: String {
@@ -502,17 +502,17 @@ extension BindingAction {
   }
 }
 
-extension BindingAction: CustomDumpReflectable {
-  public var customDumpMirror: Mirror {
-    .init(
-      self,
-      children: [
-        "set": (self.keyPath, self.value)
-      ],
-      displayStyle: .enum
-    )
-  }
-}
+//extension BindingAction: CustomDumpReflectable {
+//  public var customDumpMirror: Mirror {
+//    .init(
+//      self,
+//      children: [
+//        "set": (self.keyPath, self.value)
+//      ],
+//      displayStyle: .enum
+//    )
+//  }
+//}
 
 extension Reducer where Action: BindableAction, State == Action.State {
   /// Returns a reducer that applies ``BindingAction`` mutations to `State` before running this

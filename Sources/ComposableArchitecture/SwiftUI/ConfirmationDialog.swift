@@ -1,4 +1,4 @@
-import CustomDump
+//import CustomDump
 import SwiftUI
 
 /// A data type that describes the state of a confirmation dialog that can be shown to the user. The
@@ -167,23 +167,23 @@ public struct ConfirmationDialogState<Action> {
   }
 }
 
-@available(iOS 13, *)
-@available(macOS 12, *)
-@available(tvOS 13, *)
-@available(watchOS 6, *)
-extension ConfirmationDialogState: CustomDumpReflectable {
-  public var customDumpMirror: Mirror {
-    Mirror(
-      self,
-      children: [
-        "title": self.title,
-        "message": self.message as Any,
-        "buttons": self.buttons,
-      ],
-      displayStyle: .struct
-    )
-  }
-}
+//@available(iOS 13, *)
+//@available(macOS 12, *)
+//@available(tvOS 13, *)
+//@available(watchOS 6, *)
+//extension ConfirmationDialogState: CustomDumpReflectable {
+//  public var customDumpMirror: Mirror {
+//    Mirror(
+//      self,
+//      children: [
+//        "title": self.title,
+//        "message": self.message as Any,
+//        "buttons": self.buttons,
+//      ],
+//      displayStyle: .struct
+//    )
+//  }
+//}
 
 @available(iOS 13, *)
 @available(macOS 12, *)

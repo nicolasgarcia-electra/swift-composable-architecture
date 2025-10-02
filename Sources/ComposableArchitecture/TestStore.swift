@@ -1,6 +1,6 @@
 #if DEBUG
   import Combine
-  import CustomDump
+//  import CustomDump
   import Foundation
   import XCTestDynamicOverlay
 
@@ -365,7 +365,7 @@
     func completed() {
       if !self.receivedActions.isEmpty {
         var actions = ""
-        customDump(self.receivedActions.map(\.action), to: &actions)
+//        customDump(self.receivedActions.map(\.action), to: &actions)
         XCTFail(
           """
           The store received \(self.receivedActions.count) unexpected \
@@ -540,7 +540,7 @@
     ) async -> TestStoreTask {
       if !self.receivedActions.isEmpty {
         var actions = ""
-        customDump(self.receivedActions.map(\.action), to: &actions)
+//        customDump(self.receivedActions.map(\.action), to: &actions)
         XCTFail(
           """
           Must handle \(self.receivedActions.count) received \
@@ -623,7 +623,7 @@
     ) -> TestStoreTask {
       if !self.receivedActions.isEmpty {
         var actions = ""
-        customDump(self.receivedActions.map(\.action), to: &actions)
+//        customDump(self.receivedActions.map(\.action), to: &actions)
         XCTFail(
           """
           Must handle \(self.receivedActions.count) received \
@@ -672,30 +672,30 @@
       }
 
       if expected != actual {
-        let difference =
-          diff(expected, actual, format: .proportional)
-          .map { "\($0.indent(by: 4))\n\n(Expected: −, Actual: +)" }
-          ?? """
-          Expected:
-          \(String(describing: expected).indent(by: 2))
-
-          Actual:
-          \(String(describing: actual).indent(by: 2))
-          """
+//        let difference =
+////          diff(expected, actual, format: .proportional)
+//          .map { "\($0.indent(by: 4))\n\n(Expected: −, Actual: +)" }
+//          ?? """
+//          Expected:
+//          \(String(describing: expected).indent(by: 2))
+//
+//          Actual:
+//          \(String(describing: actual).indent(by: 2))
+//          """
 
         let messageHeading =
           modify != nil
           ? "A state change does not match expectation"
           : "State was not expected to change, but a change occurred"
-        XCTFail(
-          """
-          \(messageHeading): …
-
-          \(difference)
-          """,
-          file: file,
-          line: line
-        )
+//        XCTFail(
+//          """
+//          \(messageHeading): …
+//
+//          \(difference)
+//          """,
+//          file: file,
+//          line: line
+//        )
       } else if expected == current && modify != nil {
         XCTFail(
           """
@@ -740,26 +740,26 @@
       }
       let (receivedAction, state) = self.receivedActions.removeFirst()
       if expectedAction != receivedAction {
-        let difference = TaskResultDebugging.$emitRuntimeWarnings.withValue(false) {
-          diff(expectedAction, receivedAction, format: .proportional)
-            .map { "\($0.indent(by: 4))\n\n(Expected: −, Received: +)" }
-            ?? """
-            Expected:
-            \(String(describing: expectedAction).indent(by: 2))
+//        let difference = TaskResultDebugging.$emitRuntimeWarnings.withValue(false) {
+//          diff(expectedAction, receivedAction, format: .proportional)
+//            .map { "\($0.indent(by: 4))\n\n(Expected: −, Received: +)" }
+//            ?? """
+//            Expected:
+//            \(String(describing: expectedAction).indent(by: 2))
+//
+//            Received:
+//            \(String(describing: receivedAction).indent(by: 2))
+//            """
+//        }
 
-            Received:
-            \(String(describing: receivedAction).indent(by: 2))
-            """
-        }
-
-        XCTFail(
-          """
-          Received unexpected action: …
-
-          \(difference)
-          """,
-          file: file, line: line
-        )
+//        XCTFail(
+//          """
+//          Received unexpected action: …
+//
+//          \(difference)
+//          """,
+//          file: file, line: line
+//        )
       }
       var expectedState = self.toScopedState(self.state)
       do {

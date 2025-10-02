@@ -1,4 +1,4 @@
-import CustomDump
+//import CustomDump
 import SwiftUI
 
 /// An equatable description of SwiftUI `Text`. Useful for storing rich text in state for the
@@ -429,75 +429,75 @@ extension LocalizedStringKey {
 
 // MARK: - CustomDumpRepresentable
 
-extension TextState: CustomDumpRepresentable {
-  public var customDumpValue: Any {
-    func dumpHelp(_ textState: Self) -> String {
-      var output: String
-      switch textState.storage {
-      case let .concatenated(lhs, rhs):
-        output = dumpHelp(lhs) + dumpHelp(rhs)
-      case let .localized(key, tableName, bundle, comment):
-        output = key.formatted(tableName: tableName, bundle: bundle, comment: comment)
-      case let .verbatim(string):
-        output = string
-      }
-      for modifier in textState.modifiers {
-        switch modifier {
-        case let .accessibilityHeading(headingLevel):
-          let tag = "accessibility-heading-level"
-          output = "<\(tag)=\(headingLevel.rawValue)>\(output)</\(tag)>"
-        case let .accessibilityLabel(value):
-          let tag = "accessibility-label"
-          output = "<\(tag)=\(dumpHelp(value))>\(output)</\(tag)>"
-        case let .accessibilityTextContentType(type):
-          let tag = "accessibility-text-content-type"
-          output = "<\(tag)=\(type.rawValue)>\(output)</\(tag)>"
-        case let .baselineOffset(baselineOffset):
-          output = "<baseline-offset=\(baselineOffset)>\(output)</baseline-offset>"
-        case .bold, .fontWeight(.some(.bold)):
-          output = "**\(output)**"
-        case .font(.some):
-          break  // TODO: capture Font description using DSL similar to TextState and print here
-        case let .fontWeight(.some(weight)):
-          func describe(weight: Font.Weight) -> String {
-            switch weight {
-            case .black: return "black"
-            case .bold: return "bold"
-            case .heavy: return "heavy"
-            case .light: return "light"
-            case .medium: return "medium"
-            case .regular: return "regular"
-            case .semibold: return "semibold"
-            case .thin: return "thin"
-            default: return "\(weight)"
-            }
-          }
-          output = "<font-weight=\(describe(weight: weight))>\(output)</font-weight>"
-        case let .foregroundColor(.some(color)):
-          output = "<foreground-color=\(color)>\(output)</foreground-color>"
-        case .italic:
-          output = "_\(output)_"
-        case let .kerning(kerning):
-          output = "<kerning=\(kerning)>\(output)</kerning>"
-        case let .strikethrough(active: true, color: .some(color)):
-          output = "<s color=\(color)>\(output)</s>"
-        case .strikethrough(active: true, color: .none):
-          output = "~~\(output)~~"
-        case let .tracking(tracking):
-          output = "<tracking=\(tracking)>\(output)</tracking>"
-        case let .underline(active: true, color):
-          output = "<u\(color.map { " color=\($0)" } ?? "")>\(output)</u>"
-        case .font(.none),
-          .fontWeight(.none),
-          .foregroundColor(.none),
-          .strikethrough(active: false, color: _),
-          .underline(active: false, color: _):
-          break
-        }
-      }
-      return output
-    }
-
-    return dumpHelp(self)
-  }
-}
+//extension TextState: CustomDumpRepresentable {
+//  public var customDumpValue: Any {
+//    func dumpHelp(_ textState: Self) -> String {
+//      var output: String
+//      switch textState.storage {
+//      case let .concatenated(lhs, rhs):
+//        output = dumpHelp(lhs) + dumpHelp(rhs)
+//      case let .localized(key, tableName, bundle, comment):
+//        output = key.formatted(tableName: tableName, bundle: bundle, comment: comment)
+//      case let .verbatim(string):
+//        output = string
+//      }
+//      for modifier in textState.modifiers {
+//        switch modifier {
+//        case let .accessibilityHeading(headingLevel):
+//          let tag = "accessibility-heading-level"
+//          output = "<\(tag)=\(headingLevel.rawValue)>\(output)</\(tag)>"
+//        case let .accessibilityLabel(value):
+//          let tag = "accessibility-label"
+//          output = "<\(tag)=\(dumpHelp(value))>\(output)</\(tag)>"
+//        case let .accessibilityTextContentType(type):
+//          let tag = "accessibility-text-content-type"
+//          output = "<\(tag)=\(type.rawValue)>\(output)</\(tag)>"
+//        case let .baselineOffset(baselineOffset):
+//          output = "<baseline-offset=\(baselineOffset)>\(output)</baseline-offset>"
+//        case .bold, .fontWeight(.some(.bold)):
+//          output = "**\(output)**"
+//        case .font(.some):
+//          break  // TODO: capture Font description using DSL similar to TextState and print here
+//        case let .fontWeight(.some(weight)):
+//          func describe(weight: Font.Weight) -> String {
+//            switch weight {
+//            case .black: return "black"
+//            case .bold: return "bold"
+//            case .heavy: return "heavy"
+//            case .light: return "light"
+//            case .medium: return "medium"
+//            case .regular: return "regular"
+//            case .semibold: return "semibold"
+//            case .thin: return "thin"
+//            default: return "\(weight)"
+//            }
+//          }
+//          output = "<font-weight=\(describe(weight: weight))>\(output)</font-weight>"
+//        case let .foregroundColor(.some(color)):
+//          output = "<foreground-color=\(color)>\(output)</foreground-color>"
+//        case .italic:
+//          output = "_\(output)_"
+//        case let .kerning(kerning):
+//          output = "<kerning=\(kerning)>\(output)</kerning>"
+//        case let .strikethrough(active: true, color: .some(color)):
+//          output = "<s color=\(color)>\(output)</s>"
+//        case .strikethrough(active: true, color: .none):
+//          output = "~~\(output)~~"
+//        case let .tracking(tracking):
+//          output = "<tracking=\(tracking)>\(output)</tracking>"
+//        case let .underline(active: true, color):
+//          output = "<u\(color.map { " color=\($0)" } ?? "")>\(output)</u>"
+//        case .font(.none),
+//          .fontWeight(.none),
+//          .foregroundColor(.none),
+//          .strikethrough(active: false, color: _),
+//          .underline(active: false, color: _):
+//          break
+//        }
+//      }
+//      return output
+//    }
+//
+//    return dumpHelp(self)
+//  }
+//}

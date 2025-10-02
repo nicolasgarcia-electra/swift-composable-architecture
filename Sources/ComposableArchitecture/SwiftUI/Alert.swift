@@ -1,4 +1,4 @@
-import CustomDump
+//import CustomDump
 import SwiftUI
 
 /// A data type that describes the state of an alert that can be shown to the user. The `Action`
@@ -256,57 +256,57 @@ private struct OldAlertModifier<Action>: ViewModifier {
   }
 }
 
-extension AlertState: CustomDumpReflectable {
-  public var customDumpMirror: Mirror {
-    Mirror(
-      self,
-      children: [
-        "title": self.title,
-        "message": self.message as Any,
-        "buttons": self.buttons,
-      ],
-      displayStyle: .struct
-    )
-  }
-}
+//extension AlertState: CustomDumpReflectable {
+//  public var customDumpMirror: Mirror {
+//    Mirror(
+//      self,
+//      children: [
+//        "title": self.title,
+//        "message": self.message as Any,
+//        "buttons": self.buttons,
+//      ],
+//      displayStyle: .struct
+//    )
+//  }
+//}
 
-extension AlertState.Button: CustomDumpReflectable {
-  public var customDumpMirror: Mirror {
-    Mirror(
-      self,
-      children: [
-        self.role.map { "\($0)" } ?? "default": (
-          self.label,
-          action: self.action
-        )
-      ],
-      displayStyle: .enum
-    )
-  }
-}
+//extension AlertState.Button: CustomDumpReflectable {
+//  public var customDumpMirror: Mirror {
+//    Mirror(
+//      self,
+//      children: [
+//        self.role.map { "\($0)" } ?? "default": (
+//          self.label,
+//          action: self.action
+//        )
+//      ],
+//      displayStyle: .enum
+//    )
+//  }
+//}
 
-extension AlertState.ButtonAction: CustomDumpReflectable {
-  public var customDumpMirror: Mirror {
-    switch self.type {
-    case let .send(action):
-      return Mirror(
-        self,
-        children: [
-          "send": action
-        ],
-        displayStyle: .enum
-      )
-    case let .animatedSend(action, animation):
-      return Mirror(
-        self,
-        children: [
-          "send": (action, animation: animation)
-        ],
-        displayStyle: .enum
-      )
-    }
-  }
-}
+//extension AlertState.ButtonAction: CustomDumpReflectable {
+//  public var customDumpMirror: Mirror {
+//    switch self.type {
+//    case let .send(action):
+//      return Mirror(
+//        self,
+//        children: [
+//          "send": action
+//        ],
+//        displayStyle: .enum
+//      )
+//    case let .animatedSend(action, animation):
+//      return Mirror(
+//        self,
+//        children: [
+//          "send": (action, animation: animation)
+//        ],
+//        displayStyle: .enum
+//      )
+//    }
+//  }
+//}
 
 extension AlertState: Equatable where Action: Equatable {
   public static func == (lhs: Self, rhs: Self) -> Bool {

@@ -653,7 +653,7 @@ extension Reducer {
         case let .environment(work):
           if !self.receivedActions.isEmpty {
             var actions = ""
-            customDump(self.receivedActions.map(\.action), to: &actions)
+//            customDump(self.receivedActions.map(\.action), to: &actions)
             XCTFail(
               """
               Must handle \(self.receivedActions.count) received \
@@ -673,7 +673,7 @@ extension Reducer {
         case let .do(work):
           if !receivedActions.isEmpty {
             var actions = ""
-            customDump(self.receivedActions.map(\.action), to: &actions)
+//            customDump(self.receivedActions.map(\.action), to: &actions)
             XCTFail(
               """
               Must handle \(self.receivedActions.count) received \

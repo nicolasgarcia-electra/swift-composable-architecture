@@ -1,4 +1,4 @@
-import CustomDump
+//import CustomDump
 import SwiftUI
 
 /// A view helper that transforms a ``Store`` into a ``ViewStore`` so that its state can be observed
@@ -152,33 +152,33 @@ public struct WithViewStore<ViewState, ViewAction, Content> {
   }
 
   public var body: Content {
-    #if DEBUG
-      if let prefix = self.prefix {
-        var stateDump = ""
-        customDump(self.viewStore.state, to: &stateDump, indent: 2)
-        let difference =
-          self.previousState(self.viewStore.state)
-          .map {
-            diff($0, self.viewStore.state).map { "(Changed state)\n\($0)" }
-              ?? "(No difference in state detected)"
-          }
-          ?? "(Initial state)\n\(stateDump)"
-        func typeName(_ type: Any.Type) -> String {
-          var name = String(reflecting: type)
-          if let index = name.firstIndex(of: ".") {
-            name.removeSubrange(...index)
-          }
-          return name
-        }
-        print(
-          """
-          \(prefix.isEmpty ? "" : "\(prefix): ")\
-          WithViewStore<\(typeName(ViewState.self)), \(typeName(ViewAction.self)), _>\
-          @\(self.file):\(self.line) \(difference)
-          """
-        )
-      }
-    #endif
+//    #if DEBUG
+//      if let prefix = self.prefix {
+//        var stateDump = ""
+////        customDump(self.viewStore.state, to: &stateDump, indent: 2)
+//        let difference =
+//          self.previousState(self.viewStore.state)
+//          .map {
+//            diff($0, self.viewStore.state).map { "(Changed state)\n\($0)" }
+//              ?? "(No difference in state detected)"
+//          }
+//          ?? "(Initial state)\n\(stateDump)"
+//        func typeName(_ type: Any.Type) -> String {
+//          var name = String(reflecting: type)
+//          if let index = name.firstIndex(of: ".") {
+//            name.removeSubrange(...index)
+//          }
+//          return name
+//        }
+//        print(
+//          """
+//          \(prefix.isEmpty ? "" : "\(prefix): ")\
+//          WithViewStore<\(typeName(ViewState.self)), \(typeName(ViewAction.self)), _>\
+//          @\(self.file):\(self.line) \(difference)
+//          """
+//        )
+//      }
+//    #endif
     return self.content(ViewStore(self.viewStore))
   }
 }
